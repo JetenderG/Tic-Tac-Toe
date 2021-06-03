@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,16 +8,17 @@
     <meta name="author" content="JetenderG">
     <meta name="keywords" content="tic,tac,toe,game,fun">
     <meta name="description" content="This is a regular game of tic tac toe">
-    <link   type="text/css"  rel="stylesheet" href="style.css" >
+    <link type="text/css" rel="stylesheet" href="style.css">
     <title>Tic-Tac-Toe</title>
 </head>
+
 <body>
     <div class="title heading">
         <h1>Tic Tac Toe</h1>
     </div>
-     <div class="container game-screen">
-          <div class="sidebar sidebar-left bar" ></div>
-          <div class="middleBar gameScreen bar">
+    <div class="container game-screen">
+        <div class="sidebar sidebar-left bar"></div>
+        <div class="middleBar gameScreen bar">
             <div class="tic-tac-toe game">
                     <div id="box-1" class="box"></div>
                     <div id="box-2" class="box"></div>
@@ -26,29 +28,66 @@
                     <div id="box-6" class="box"></div>
                     <div id="box-7" class="box"></div>
                     <div id="box-8" class="box"></div>
-                    <div id="box-9" class="box"></div>
-            </div>
-          </div>
-          <div class="sidebar sidebar-right bar"></div>
-     </div>
-     <script defer>
+                    <div id="box-9" class="box"></div> 
+        </div>
+    </div>        
+    <div class="sidebar sidebar-right bar"></div>
+</div>    
+<div class="footer"></div>
+
+    <script defer>
+  
+ 
+
+        const winningCombos = [
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+            [1, 4, 7],
+            [2, 5, 8],
+            [3, 6, 9],
+            [1, 5, 9],
+            [2, 5, 7]
+        ];
         let player_one = {
-            wins:0,
-            turns:[],
+            name:"playerOne",
+            wins: 0,
+            turns: [],
+            mark: 'x',
+            color:'red'
         }
         let player_two = {
-            wins:0,
-            turns:[],
+            name:"playerTwo",
+            wins: 0,
+            turns: [],
+            mark: 'o',
+            color:'green'
         }
+            let turn, winner;
 
-        const winningCombos = [[1,2,3],[4,5,6],[7,8,9],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3]]
-        let gameStart = () =>{
-
+        let toEnableTickingonBox = (player, element) =>{
+        element.style.background = player.color
+        element.dataset.player = player.mark                      
+        if(turn === player_one){turn=player_two}else{turn = player_one}
+            }
+        let checkIfBoxBeenTicked = (turn,element)=>{
+             if (element.dataset.player === 'x' || element.dataset.player === 'o' ){
+                 return alert('Has Already Been Captured')
+             }else{
+                toEnableTickingonBox(turn,event.target)         
+             }
+        }
+        function gameStart  ()  {
+            turn = player_one;
+            const box_list = document.getElementsByClassName('box');
+              for (let i = 0 ;i < box_list.length; i++){
+                  box_list[i].addEventListener('click', ()=> Promise.resolve(checkIfBoxBeenTicked(turn,event.target)))
+              }
 
         }
-
-         //
-     </script>
-     <div class="footer"></div>
+        gameStart();
+        //
+    </script>
 </body>
+
 </html>
