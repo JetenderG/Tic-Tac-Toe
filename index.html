@@ -20,25 +20,22 @@
         <div class="sidebar sidebar-left bar"></div>
         <div class="middleBar gameScreen bar">
             <div class="tic-tac-toe game">
-                    <div id="box-1" class="box"></div>
-                    <div id="box-2" class="box"></div>
-                    <div id="box-3" class="box"></div>
-                    <div id="box-4" class="box"></div>
-                    <div id="box-5" class="box"></div>
-                    <div id="box-6" class="box"></div>
-                    <div id="box-7" class="box"></div>
-                    <div id="box-8" class="box"></div>
-                    <div id="box-9" class="box"></div> 
+                <div id="box-1" class="box" data-num="1"></div>
+                <div id="box-2" class="box" data-num="2"></div>
+                <div id="box-3" class="box" data-num="3"></div>
+                <div id="box-4" class="box" data-num="4"></div>
+                <div id="box-5" class="box" data-num="5"></div>
+                <div id="box-6" class="box" data-num="6"></div>
+                <div id="box-7" class="box" data-num="7"></div>
+                <div id="box-8" class="box" data-num="8"></div>
+                <div id="box-9" class="box" data-num="9"></div>
+            </div>
         </div>
-    </div>        
-    <div class="sidebar sidebar-right bar"></div>
-</div>    
-<div class="footer"></div>
+        <div class="sidebar sidebar-right bar"></div>
+    </div>
+    <div class="footer"></div>
 
     <script defer>
-  
- 
-
         const winningCombos = [
             [1, 2, 3],
             [4, 5, 6],
@@ -50,40 +47,68 @@
             [2, 5, 7]
         ];
         let player_one = {
-            name:"playerOne",
+            name: "playerOne",
             wins: 0,
             turns: [],
             mark: 'x',
-            color:'red'
+            color: 'red'
         }
         let player_two = {
-            name:"playerTwo",
+            name: "playerTwo",
             wins: 0,
             turns: [],
             mark: 'o',
-            color:'green'
+            color: 'green'
         }
-            let turn, winner;
+        let turn, winner;
 
-        let toEnableTickingonBox = (player, element) =>{
-        element.style.background = player.color
-        element.dataset.player = player.mark                      
-        if(turn === player_one){turn=player_two}else{turn = player_one}
+        let toEnableTickingonBox = (player, element) => {
+            element.style.background = player.color
+            element.dataset.player = player.mark
+            player.turns.push(Number(element.dataset.num))
+            checkIfWin(player)
+            if (turn === player_one) {
+                turn = player_two
+            } else {
+                turn = player_one
             }
-        let checkIfBoxBeenTicked = (turn,element)=>{
-             if (element.dataset.player === 'x' || element.dataset.player === 'o' ){
-                 return alert('Has Already Been Captured')
-             }else{
-                toEnableTickingonBox(turn,event.target)         
-             }
         }
-        function gameStart  ()  {
+        let checkIfBoxBeenTicked = (turn, element) => {
+            if (element.dataset.player === 'x' || element.dataset.player === 'o') {
+                return alert('Has Already Been Captured')
+            } else {
+                toEnableTickingonBox(turn, event.target)
+            }
+        }
+
+        function checkIfWin(player){
+            let i;
+            winningCombos.forEach(combo => {
+                i = 0;
+                recursiveChecks(player.turns, combo, i)
+            });
+        }
+
+        let recursiveChecks = (turns, combo, i) => {
+            console.log(turns,combo,i)
+            if (i > 2) {
+              prompt('Winner')
+               turn.wins++; 
+            } else if (turns[i] === combo[i]) {
+                console.log(":hreh")
+                i++
+                recursiveChecks(turns, combo, i)
+            } else {
+                return;
+            }
+        }
+
+        function gameStart() {
             turn = player_one;
             const box_list = document.getElementsByClassName('box');
-              for (let i = 0 ;i < box_list.length; i++){
-                  box_list[i].addEventListener('click', ()=> Promise.resolve(checkIfBoxBeenTicked(turn,event.target)))
-              }
-
+            for (let i = 0; i < box_list.length; i++) {
+                box_list[i].addEventListener('click', () => (checkIfBoxBeenTicked(turn, event.target)))
+            }
         }
         gameStart();
         //
