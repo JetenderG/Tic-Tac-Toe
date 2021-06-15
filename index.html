@@ -60,94 +60,127 @@
             mark: 'o',
             color: 'green'
         }
-        let turn, winner;
-        
-       let checkIfBoxBeenTicked = (turn, element) => {
-            console.log(element.dataset.player)
-            if (element.dataset.player === 'x' || element.dataset.player === 'o') {
-               
-                console.log("This is where its captured")
-            } else {
-                
-                console.log("This is where its working")
-                toEnableTickingonBox(turn, event.target)
-            }
-        }
+        //     let turn, winner;
 
-        let toEnableTickingonBox = (player, element) => {
-            element.style.background = player.color
-            element.dataset.player = player.mark
-            player.turns.push(Number(element.dataset.num))
-            checkIfWin(player)
-            if (turn === player_one) {
-                turn = player_two
-            } else {
-                turn = player_one
-            }
-        }
- 
-        function checkIfWin(player){
-            let i;
-            console.log('hello')
-            winningCombos.forEach(combo => {
-                i = 0;
-                recursiveChecks(player.turns, combo, i)
-            });
-        }
+        //    let checkIfBoxBeenTicked = (turn, element) => {
+        //         console.log(element.dataset.player)
+        //         if (element.dataset.player === 'x' || element.dataset.player === 'o') {
 
-        let recursiveChecks = (turns, combo, i) => {
-            console.log(turns,combo,i)
-            if (i > 2) {
-               turn.wins++; 
-               clearAndStart();
+        //             console.log("This is where its captured")
+        //         } else {
 
-            } else if (turns[i] === combo[i]) {
-                console.log(turns[i] , combo[i])
-                i++
-                recursiveChecks(turns, combo, i)
-            }else if ((player_one.turns.length+ player_two.turns.length) === 9){
-                alert("Board full")
-                clearAndStart()
-            } else {
-                return false;
-            }
-        }
+        //             console.log("This is where its working")
+        //             toEnableTickingonBox(turn, event.target)
+        //         }
+        //     }
 
-        function clearAndStart (){
-            player_one.turns =[]
-            player_two.turns =[]
-            let argBoxes = Array.from(document.querySelectorAll('.box'))
-            for (let i = 0; i < argBoxes.length; i++) {
-               
-                argBoxes[i].removeAttribute('data-player');
-                argBoxes[i].style.background  = 'none'
-                argBoxes[i].removeEventListener('click', () => (checkIfBoxBeenTicked(turn, event.target)))            }
+        //     let toEnableTickingonBox = (player, element) => {
+        //         element.style.background = player.color
+        //         element.dataset.player = player.mark
+        //         player.turns.push(Number(element.dataset.num))
+        //         checkIfWin(player)
+        //         if (turn === player_one) {
+        //             turn = player_two
+        //         } else {
+        //             turn = player_one
+        //         }
+        //     }
 
-            // argBoxes.forEach(element => { 
-            //     console.log(element)
-            //     element.removeAttribute('data-player');
-            //     element.style.background  = 'none'
-            //     element.removeEventListener('click', () => (checkIfBoxBeenTicked(turn, event.target)))
-            // } )              
-          
-        //  window.document.removeEventListener('click')
-         gameStart();
-        }
-        function gameStart() {
-            turn = player_one;
-            const box_list = document.querySelectorAll('.box');
-            for (let i = 0; i < box_list.length; i++) {
-                box_list[i].addEventListener('click', (event) => (checkIfBoxBeenTicked(turn, event.target)))
-            }
-            // window.document.addEventListener('click', (event)=>{
-            //     let boxTick = event.target;
-            //     if(boxTick.ClassName = 'box'){
-            //         checkIfBoxBeenTicked(turn,event.target)
-            //     }
-            // })
-        }
-        gameStart();
+        //     function checkIfWin(player){
+        //         let i;
+        //         console.log('hello')
+        //         winningCombos.forEach(combo => {
+        //             i = 0;
+        //             recursiveChecks(player.turns, combo, i)
+        //         });
+        //     }
+
+        //     let recursiveChecks = (turns, combo, i) => {
+        //         console.log(turns,combo,i)
+        //         if (i > 2) {
+        //            turn.wins++; 
+        //            clearAndStart();
+
+        //         } else if (turns[i] === combo[i]) {
+        //             console.log(turns[i] , combo[i])
+        //             i++
+        //             recursiveChecks(turns, combo, i)
+        //         }else if ((player_one.turns.length+ player_two.turns.length) === 9){
+        //             alert("Board full")
+        //             clearAndStart()
+        //         } else {
+        //             return false;
+        //         }
+        //     }
+
+        //     function clearAndStart (){
+        //         player_one.turns =[]
+        //         player_two.turns =[]
+        //         let argBoxes = Array.from(document.querySelectorAll('.box'))
+        //         for (let i = 0; i < argBoxes.length; i++) {
+
+        //             argBoxes[i].removeAttribute('data-player');
+        //             argBoxes[i].style.background  = 'none'
+        //             argBoxes[i].removeEventListener('click', () => (checkIfBoxBeenTicked(turn, event.target)))            }
+
+        //         // argBoxes.forEach(element => { 
+        //         //     console.log(element)
+        //         //     element.removeAttribute('data-player');
+        //         //     element.style.background  = 'none'
+        //         //     element.removeEventListener('click', () => (checkIfBoxBeenTicked(turn, event.target)))
+        //         // } )              
+
+        //     //  window.document.removeEventListener('click')
+        //      gameStart();
+        //     }
+        //     function gameStart() {
+        //         turn = player_one;
+        //         const box_list = document.querySelectorAll('.box');
+        //         for (let i = 0; i < box_list.length; i++) {
+        //             box_list[i].addEventListener('click', (event) => (checkIfBoxBeenTicked(turn, event.target)))
+        //         }
+        //         // window.document.addEventListener('click', (event)=>{
+        //         //     let boxTick = event.target;
+        //         //     if(boxTick.ClassName = 'box'){
+        //         //         checkIfBoxBeenTicked(turn,event.target)
+        //         //     }
+        //         // })
+        //     }
+        //     gameStart();
         //
+
+
+
+
+        function start() {
+            let winner = 0;
+
+            let tick_tac_Outcome = (turns, combo, increment) =>{
+                if(turns.length <= 1){
+                    return;
+                }else{
+                      let answer_possible;
+                turns.forEach(element => {
+                    
+                });  
+                }
+            
+            }
+            window.document.addEventListener('click', (event) => {
+                if (event.target.className === 'box') {
+                    if (player_one.turns.indexOf(event.target.dataset.num) === -1) {
+                        player_one.turns.push(Number(event.target.dataset.num));
+                        tick_tac_Outcome(player_one.turns.sort(), winningCombos, 0)
+                    } else {
+                        console.log()
+                    }
+                }
+            })
+
+        }
+
+
+        start();
     </script>
 </body>
 
