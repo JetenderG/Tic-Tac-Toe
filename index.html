@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +10,9 @@
     <link type="text/css" rel="stylesheet" href="style.css">
     <title>Tic-Tac-Toe</title>
 </head>
-
 <body>
     <div class="title heading">
-        <h1>Tic Tac Toe</h1>
+        <h1 style="text-align: center;">Tic Tac Toe</h1>
     </div>
     <div class="container game-screen">
         <div class="sidebar sidebar-left bar"></div>
@@ -59,13 +57,36 @@
             mark: 'o',
             color: 'green'
         }
-
         function start() {
             let player = player_one
-
-        
-            
-
+            function reset(){
+                player_one.turns =[];
+                player_two.turns =[];
+                let box_selections = document.querySelectorAll('box');
+                box_selections.forEach(box =>{
+                })
+            }
+            function box_Mark (box,mark){
+                console.log(box)
+                let markedElement = document.createElement('p');
+                    markedElement.classList.add("x_mark");
+                switch(mark){
+                    case 'x':
+                        markedElement.innerHTML  = 'X'
+                        break;
+                    case 'o':
+                    markedElement.innerHTML  = 'O'
+                        break
+                }
+                box.append(markedElement);
+            }
+            function fillBoard_Check  (){
+                console.log("GimED")
+                console.log(Number(player_one.turns.length + player_two.turns.length) === 9)
+                if((player_one.turns.length + player_two.turns.length)=== 9){
+                    alert("Board Filled")
+                }
+            }
             function player_change() {
                 console.log("This is changed")
                 if (player === player_one) {
@@ -81,24 +102,23 @@
                     console.log(turns[i])
                     if (answered.length === 1) {
                         if (answered[0].includes(turns[i])) {
-                            return console.log("Winner")
+                            return alert("Winner")
                         }
                     } else {
                         answered = answered.filter(element => element.includes(turns[i]))
                     }
                 }
+                fillBoard_Check();
             }
             window.document.addEventListener('click', (event) => {
                 if (event.target.className === 'box') {
-                    if (player_one.turns.indexOf(event.target.dataset.num) === -1 || player.turns.turns.indexOf(
-                            event.target.dataset.num) === -1) {
+                    if (player_one.turns.indexOf(Number(event.target.dataset.num)) === -1 && player_two.turns.indexOf(Number(event.target.dataset.num)) === -1) {
+                        box_Mark(event.target, player.mark)
                         player.turns.push(Number(event.target.dataset.num));
                         if (player.turns.length > 2) {
                             tick_tac_Outcome(player.turns.sort(), winningCombos, 0)
-
                         }
                         player_change();
-
                     } else {
                         console.log()
                     }
@@ -108,5 +128,4 @@
         start();
     </script>
 </body>
-
 </html>
