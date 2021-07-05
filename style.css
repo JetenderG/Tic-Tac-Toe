@@ -29,7 +29,7 @@ width: 33.33%;
 }
 .footer{
     z-index: 0;
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 20%;
 }
@@ -50,8 +50,18 @@ width: 33.33%;
     font-size: 116px;
     margin: 0;
 }
+.sidebar
+{
+    display: grid;
+    grid-template-areas: "a"
+                         "b"
+                         "c";
 
+} 
+.bar > .player_score{
+        grid-area: b;
 
-.o_mark{
-    
+}
+.score_layout{
+    margin:0;
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,12 +11,20 @@
     <link type="text/css" rel="stylesheet" href="style.css">
     <title>Tic-Tac-Toe</title>
 </head>
+
 <body>
     <div class="title heading">
         <h1 style="text-align: center;">Tic Tac Toe</h1>
     </div>
     <div class="container game-screen">
-        <div class="sidebar sidebar-left bar"></div>
+        <div class="sidebar sidebar-left bar">
+            <div></div>
+            <div class="player_score">
+                <p class="score_layout">Wins: <span class="winner_score score_One"></span></p>
+            </div>
+            <div></div>
+
+        </div>
         <div class="middleBar gameScreen bar">
             <div class="tic-tac-toe game">
                 <div id="box-1" class="box" data-num="1"></div>
@@ -29,7 +38,11 @@
                 <div id="box-9" class="box" data-num="9"></div>
             </div>
         </div>
-        <div class="sidebar sidebar-right bar"></div>
+        <div class="sidebar sidebar-right bar">
+            <div class="player_score">
+                <p class="score_layout">Wins: <span class="winner_score score_Two"></span></p>
+            </div>
+        </div>
     </div>
     <div class="footer"></div>
     <script defer>
@@ -57,75 +70,112 @@
             mark: 'o',
             color: 'green'
         }
+
         function start() {
+
+            document.querySelector(".score_One").innerHTML = player_one.wins;
+            document.querySelector(".score_Two").innerHTML = player_two.wins;
+            
             let player = player_one
-            function reset(){
-                player_one.turns =[];
-                player_two.turns =[];
-                let box_selections = document.querySelectorAll('box');
-                box_selections.forEach(box =>{
-                })
+
+            let pointUp = () =>{
+                    player.wins++
+                switch(player.name){
+                    case "playerOne":
+                     document.querySelector(".score_One").innerHTML = player_one.wins;
+                        break;
+                    case "playerTwo":
+                     document.querySelector(".score_Two").innerHTML = player_two.wins;
+                        break;
+                    default:
+                        console.log("Something went Wrong")
+                        break;
+                }
             }
-            function box_Mark (box,mark){
-                console.log(box)
+
+            let reset = () => {
+                player = player_two;
+                player_one.turns = [];
+                player_two.turns = [];
+                let box_selections = document.querySelectorAll('.box');
+                box_selections.forEach(box => {
+                    console.log(box)
+                    box.innerHTML = "";
+                })
+                console.log(player)
+
+            }
+
+            let box_Mark = (box, mark) => {
+                let winner_outcome = (player) => {}
                 let markedElement = document.createElement('p');
-                    markedElement.classList.add("x_mark");
-                switch(mark){
+                markedElement.classList.add("x_mark");
+                switch (mark) {
                     case 'x':
-                        markedElement.innerHTML  = 'X'
+                        markedElement.innerHTML = 'X'
                         break;
                     case 'o':
-                    markedElement.innerHTML  = 'O'
+                        markedElement.innerHTML = 'O'
                         break
                 }
                 box.append(markedElement);
             }
-            function fillBoard_Check  (){
-                console.log("GimED")
-                console.log(Number(player_one.turns.length + player_two.turns.length) === 9)
-                if((player_one.turns.length + player_two.turns.length)=== 9){
+
+            let fillBoard_Check = ()=> {
+                if ((player_one.turns.length + player_two.turns.length) === 9) {
                     alert("Board Filled")
+                    reset()
                 }
             }
-            function player_change() {
-                console.log("This is changed")
+
+            let player_change = () => {
+                console.log("Egseg")
                 if (player === player_one) {
                     return player = player_two
+
                 } else {
                     return player = player_one
                 }
-                console.log(player_one.turns, player_two.turns)
             }
+
+
             let tick_tac_Outcome = (turns, combo, increment) => {
                 let answered = combo;
                 for (let i = 0; i < turns.length; i++) {
-                    console.log(turns[i])
-                    if (answered.length === 1) {
+                 if (answered.length === 1) {
                         if (answered[0].includes(turns[i])) {
-                            return alert("Winner")
+                            alert("Winner")
+                            pointUp();
+                            return reset()
                         }
-                    } else {
+                    }else{
                         answered = answered.filter(element => element.includes(turns[i]))
                     }
                 }
-                fillBoard_Check();
+               //fillBoard_Check();
             }
+
+
             window.document.addEventListener('click', (event) => {
                 if (event.target.className === 'box') {
+                    console.log(player)
                     if (player_one.turns.indexOf(Number(event.target.dataset.num)) === -1 && player_two.turns.indexOf(Number(event.target.dataset.num)) === -1) {
                         box_Mark(event.target, player.mark)
                         player.turns.push(Number(event.target.dataset.num));
                         if (player.turns.length > 2) {
                             tick_tac_Outcome(player.turns.sort(), winningCombos, 0)
                         }
+                //    fillBoard_Check();
                         player_change();
                     } else {
                         console.log()
                     }
-                } 
+                    fillBoard_Check();
+                }
             })
         }
         start();
     </script>
 </body>
+
 </html>
