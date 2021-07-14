@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+body{
+  margin:0 ;
+  padding: 0;
+}
+.wave{
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+position: relative;
+}
+
+.ellipse{
+  display: inline-block;
+  height: 50px;
+  width: 200px;
+  position: relative;
+  background-color: red;
+  animation: mymove 5s linear infinite;
+  z-index: 1;
+
+}
+
+
+
+.ellipse_two{
+  display: block;
+  z-index: -1;
+  height: 50px;
+  width: 200px;
+  position: relative;
+  background-color: red;
+  animation: mymove 5s alternate-reverse infinite;
+}
+
+@keyframes mymove {
+  
+ 0%{margin:0px}
+ 100%{margin-left: 100%;}
+
+
+}
+@keyframes mymoveagain {
+  from {top: 200px;}
+  to {top: 0px;}
+}
+</style>
+
+</head>
+
+<body>
+    
+    <div class="wave">
+        <div class="ellipse"></div>
+        <div class="ellipse_two"></div>
+
+    </div>
+
+
+</body>
+</html>
