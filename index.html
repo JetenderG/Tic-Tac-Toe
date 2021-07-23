@@ -74,13 +74,13 @@
         }
 
         function start() {
-
             document.querySelector(".score_One").innerHTML = player_one.wins;
             document.querySelector(".score_Two").innerHTML = player_two.wins;
             
             let player = player_one
 
             let pointUp = () =>{
+                alert(player + "got a point")
                     player.wins++
                 switch(player.name){
                     case "playerOne":
@@ -93,6 +93,7 @@
                         console.log("Something went Wrong")
                         break;
                 }
+               reset();
             }
 
             let reset = () => {
@@ -101,11 +102,8 @@
                 player_two.turns = [];
                 let box_selections = document.querySelectorAll('.box');
                 box_selections.forEach(box => {
-                    console.log(box)
                     box.innerHTML = "";
                 })
-                console.log(player)
-
             }
 
             let box_Mark = (box, mark) => {
@@ -125,8 +123,10 @@
 
             let fillBoard_Check = ()=> {
                 if ((player_one.turns.length + player_two.turns.length) === 9) {
-                    alert("Board Filled")
-                    reset()
+                   console.log(player_one.turns.length, player_two.turns.length)
+                    return true;
+                }else{
+                    return false;
                 }
             }
 
@@ -140,23 +140,27 @@
                 }
             }
 
-
-            let tick_tac_Outcome = (turns, combo, increment) => {
+       let tick_tac_Outcome = (turns, combo, increment) => {
+                console.log("Player Turn : " + player.name)
                 let answered = combo;
-                for (let i = 0; i < turns.length; i++) {
-                 if (answered.length === 1) {
-                        if (answered[0].includes(turns[i])) {
-                            alert("Winner")
-                            pointUp();
-                            return reset()
-                        }
-                    }else{
-                        answered = answered.filter(element => element.includes(turns[i]))
+                for (let i = 0; i < combo.length; i++) {
+                    console.log("SEGFS")
+                       recursive(turns,combo[i],0)
                     }
-                }
-               //fillBoard_Check();
             }
 
+
+           let recursive = (turns, arg, increment)=>{
+                if(turns.includes(arg[increment])){
+                    if(increment === 2){
+                       return pointUp()
+                    }else{
+                        increment++;
+                    recursive(turns, arg, increment)  
+                    }
+                }else { fillBoard_Check 
+            }
+            }
 
             window.document.addEventListener('click', (event) => {
                 if (event.target.className === 'box') {
@@ -167,16 +171,38 @@
                         if (player.turns.length > 2) {
                             tick_tac_Outcome(player.turns.sort(), winningCombos, 0)
                         }
-                //    fillBoard_Check();
                         player_change();
-                    } else {
-                        console.log()
-                    }
-                    fillBoard_Check();
+                    } 
+                  //  fillBoard_Check();
                 }
             })
         }
+
+
+
+
+
+
+
+        
+
+  
+
+
+
+
+
+
         start();
+
+
+
+
+
+
+
+
+        
     </script>
 </body>
 
