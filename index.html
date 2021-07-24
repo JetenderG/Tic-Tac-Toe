@@ -122,12 +122,11 @@
             }
 
             let fillBoard_Check = ()=> {
-                if ((player_one.turns.length + player_two.turns.length) === 9) {
-                   console.log(player_one.turns.length, player_two.turns.length)
-                    return true;
-                }else{
-                    return false;
+                console.log("adada" + Number(player_one.turns.length + player_two.turns.length))
+                if (Number(player_one.turns.length + player_two.turns.length) === 9) {
+                   reset();
                 }
+                
             }
 
             let player_change = () => {
@@ -153,12 +152,12 @@
            let recursive = (turns, arg, increment)=>{
                 if(turns.includes(arg[increment])){
                     if(increment === 2){
-                       return pointUp()
+                        pointUp()
                     }else{
                         increment++;
                     recursive(turns, arg, increment)  
                     }
-                }else { fillBoard_Check 
+                }else { fillBoard_Check(); 
             }
             }
 
